@@ -1,0 +1,76 @@
+// Clase Producto
+class Producto {
+    constructor(nombre, precio, cantidad) {
+      this.nombre = nombre;
+      this.precio = precio;
+      this.cantidad = cantidad;
+    }
+  
+    aplicarDescuento(descuento) {
+      this.precio -= (this.precio * descuento) / 100;
+    }
+  }
+  
+  // Clase CarritoDeCompras
+  class CarritoDeCompras {
+    constructor() {
+      this.productos = [];
+    }
+  
+    agregarProducto(producto) {
+      this.productos.push(producto);
+    }
+  
+    eliminarProducto(nombreProducto) {
+      this.productos = this.productos.filter(producto => producto.nombre !== nombreProducto);
+    }
+  
+    modificarProducto(nombreProducto, nuevaCantidad) {
+      const producto = this.productos.find(producto => producto.nombre === nombreProducto);
+      if (producto) {
+        producto.cantidad = nuevaCantidad;
+      } else {
+        console.log(`Producto ${nombreProducto} no encontrado en el carrito.`);
+      }
+    }
+  
+    aplicarDescuentoProducto(nombreProducto, descuento) {
+      const producto = this.productos.find(producto => producto.nombre === nombreProducto);
+      if (producto) {
+        producto.aplicarDescuento(descuento);
+      } else {
+        console.log(`Producto ${nombreProducto} no encontrado en el carrito.`);
+      }
+    }
+  
+    generarResumenCompra() {
+      let total = 0;
+      console.log("Resumen de la compra:");
+      this.productos.forEach(producto => {
+        const subtotal = producto.precio * producto.cantidad;
+        console.log(`${producto.nombre} - Cantidad: ${producto.cantidad} - Precio unitario: $${producto.precio.toFixed(2)} - Subtotal: $${subtotal.toFixed(2)}`);
+        total += subtotal;
+      });
+      console.log(`Total a pagar: $${total.toFixed(2)}`);
+    }
+  }
+  
+  // Ejemplo de uso
+  const carrito = new CarritoDeCompras();
+  
+  const producto1 = new Producto("Camiseta", 20, 2);
+  const producto2 = new Producto("Pantalones", 40, 1);
+  const producto3 = new Producto("Zapatos", 60, 1);
+  
+  carrito.agregarProducto(producto1);
+  carrito.agregarProducto(producto2);
+  carrito.agregarProducto(producto3);
+  
+  carrito.modificarProducto("Camiseta", 3); 
+  
+  carrito.aplicarDescuentoProducto("Pantalones", 10);
+  
+  carrito.eliminarProducto("Zapatos"); 
+  
+  carrito.generarResumenCompra(); 
+  
