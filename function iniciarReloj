@@ -1,0 +1,26 @@
+function iniciarReloj() {
+  // Función para mostrar la hora actual en una alerta
+  function mostrarHora() {
+    const ahora = new Date();
+    const horas = ahora.getHours().toString().padStart(2, '0');
+    const minutos = ahora.getMinutes().toString().padStart(2, '0');
+    const segundos = ahora.getSeconds().toString().padStart(2, '0');
+    const horaActual = `${horas}:${minutos}:${segundos}`;
+    
+    window.alert(`La hora actual es: ${horaActual}`);
+  }
+
+  mostrarHora();
+
+  const ahora = new Date();
+  const segundosHastaProximoMinuto = 60 - ahora.getSeconds();
+
+  window.setTimeout(() => {
+    // Mostrar la hora en el minuto exacto
+    mostrarHora();
+
+    window.setInterval(mostrarHora, 60000);
+  }, segundosHastaProximoMinuto * 1000);
+}
+// Llamada a la función para iniciar el reloj
+iniciarReloj();
